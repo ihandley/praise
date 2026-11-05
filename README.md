@@ -40,7 +40,7 @@ Uses Node's built-in test runner; no dependencies.
 
 Releases are automated by [release-please](https://github.com/googleapis/release-please).
 
-1. Use Conventional Commit titles on PRs (`feat:`, `fix:`, `feat!:` for breaking changes). Other types do not trigger a release.
+1. Use Conventional Commit titles on PRs (`feat:`, `fix:`, `feat!:` for breaking changes). Other types (`chore`, `docs`, and so on) do not trigger a release on their own.
 2. After a releasable change lands on `main`, release-please opens or updates a Release PR that bumps `version` in `manifest.json` and `package.json` and updates `CHANGELOG.md`.
 3. Merge the Release PR. The workflow tags `vX.Y.Z`, publishes the GitHub Release, runs the tests, and attaches `praise-X.Y.Z.zip`.
 
