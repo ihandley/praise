@@ -23,6 +23,8 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
       timeoutMs: TIMEOUT_MS,
     });
     await chrome.tabs.sendMessage(tab.id, { type: 'praise-insert', text }, { frameId: info.frameId });
+  } catch (err) {
+    console.warn('PRaise: could not insert message. Reload the page and try again.', err);
   } finally {
     inFlight = false;
   }
