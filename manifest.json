@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "PRaise",
+  "version": "0.1.0",
+  "description": "Positive PR affirmations: right-click in a GitHub pull request comment box to insert a friendly LGTM message.",
+  "permissions": [
+    "contextMenus",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://text.pollinations.ai/*",
+    "https://github.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  }
+}
