@@ -38,8 +38,10 @@ Uses Node's built-in test runner; no dependencies.
 
 ## Cut a release
 
-1. Bump `version` in `manifest.json` and `package.json`, and merge to `main`.
-2. Tag and push: `git tag vX.Y.Z && git push origin vX.Y.Z`.
-3. The `release` workflow runs the tests, checks the tag matches the manifest, builds the zip and publishes the GitHub Release.
+Releases are automated by [release-please](https://github.com/googleapis/release-please).
 
-Build the zip locally with `scripts/package.sh` (output in `dist/`).
+1. Use Conventional Commit titles on PRs (`feat:`, `fix:`, `feat!:` for breaking changes). Other types do not trigger a release.
+2. After a releasable change lands on `main`, release-please opens or updates a Release PR that bumps `version` in `manifest.json` and `package.json` and updates `CHANGELOG.md`.
+3. Merge the Release PR. The workflow tags `vX.Y.Z`, publishes the GitHub Release, runs the tests, and attaches `praise-X.Y.Z.zip`.
+
+Do not hand-edit `version` in `manifest.json` or `package.json`. Build the zip locally with `scripts/package.sh` (output in `dist/`).
