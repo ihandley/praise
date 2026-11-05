@@ -7,11 +7,21 @@ let inFlight = false;
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: MENU_ID,
-    title: 'Insert LGTM',
+    title: 'PRaise',
     contexts: ['editable'],
     documentUrlPatterns: ['https://github.com/*/pull/*'],
   });
 });
+
+function insertAtCursor(text) {
+  const el = document.activeElement;
+  if (!(el instanceof HTMLTextAreaElement || el instanceof HTMLInputElement)) return false;
+  el.focus();
+  if (document.execCommand('insertText', false, text)) return true;
+  el.setRangeText(text, el.selectionStart, el.selectionEnd, 'end');
+  el.dispatchEvent(new Event('input', { bubbles: true }));
+  return true;
+}
 
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   if (info.menuItemId !== MENU_ID || !tab || inFlight) return;
@@ -22,9 +32,14 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
       random: Math.random,
       timeoutMs: TIMEOUT_MS,
     });
-    await chrome.tabs.sendMessage(tab.id, { type: 'praise-insert', text }, { frameId: info.frameId });
+    const [result] = await chrome.scripting.executeScript({
+      target: { tabId: tab.id, frameIds: [info.frameId ?? 0] },
+      func: insertAtCursor,
+      args: [text],
+    });
+    if (!result?.result) console.warn('PRaise: no text box was focused, nothing inserted.');
   } catch (err) {
-    console.warn('PRaise: could not insert message. Reload the page and try again.', err);
+    console.error('PRaise: could not insert message.', err);
   } finally {
     inFlight = false;
   }
