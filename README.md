@@ -1,3 +1,5 @@
+<p align="center"><img src="icons/128.png" alt="PRaise icon" width="128" height="128"></p>
+
 # PRaise
 
 Positive PR affirmations. Right-click in a text box on a github.com pull request page, choose "PRaise", and a short, friendly, humorous Message is inserted at the cursor. The comment is never submitted.
