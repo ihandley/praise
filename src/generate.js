@@ -48,7 +48,11 @@ export async function generateMessage({ fetch, random, timeoutMs }) {
 }
 
 function clean(text) {
-  return text.trim().replace(/[\u2013\u2014]/g, '-');
+  return text
+    .trim()
+    .replace(/^["'\u201c\u2018]+|["'\u201d\u2019]+$/g, '')
+    .trim()
+    .replace(/[\u2013\u2014]/g, '-');
 }
 
 function pickFallback(random) {

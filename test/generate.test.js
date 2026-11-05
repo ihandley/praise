@@ -96,3 +96,21 @@ test('fallback choice follows random', async () => {
 test('no fallback message contains an en or em dash', () => {
   for (const m of FALLBACK_MESSAGES) assert.doesNotMatch(m, /[\u2013\u2014]/);
 });
+
+test('strips quotes wrapped around the reply', async () => {
+  const msg = await generateMessage({
+    fetch: reply('"Ship it, this is tidy."'),
+    random: () => 0.5,
+    timeoutMs: 100,
+  });
+  assert.equal(msg, 'Ship it, this is tidy.');
+});
+
+test('strips curly quotes wrapped around the reply', async () => {
+  const msg = await generateMessage({
+    fetch: reply('\u201cNice work!\u201d'),
+    random: () => 0.5,
+    timeoutMs: 100,
+  });
+  assert.equal(msg, 'Nice work!');
+});
