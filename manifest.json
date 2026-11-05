@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "PRaise",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Positive PR affirmations: right-click in a GitHub pull request comment box to insert a friendly LGTM message.",
   "permissions": [
     "contextMenus",
